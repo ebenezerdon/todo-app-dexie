@@ -19,6 +19,7 @@ const App = () => {
     or in our case, use the Array.filter method to filter completed/not-completed items
   */
 
+  // eslint-disable-next-line no-unused-vars
   const completedItems = allItems?.filter((item) => item.completed === true)
 
   const addTask = async (event) => {
