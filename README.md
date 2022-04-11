@@ -1,1 +1,1 @@
-Todo app project from Ebenezer Don's React course
+Todo app with React and Dexie.js
