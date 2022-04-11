@@ -1,5 +1,5 @@
 .container {
-  width: 40%;
+  width: 50%;
 }
 
 .delete-button:hover {
@@ -19,5 +19,5 @@
 }
 
 .strike-text {
-  text-decoration: line-through
+  text-decoration: line-through;
 }
