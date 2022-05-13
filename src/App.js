@@ -7,8 +7,11 @@ db.version(1).stores({
   todos: '++id,task,completed',
 })
 
+// @ts-ignore
+const { todos } = db
+
 const App = () => {
-  const allItems = useLiveQuery(() => db.todos.toArray(), [])
+  const allItems = useLiveQuery(() => todos.toArray(), [])
 
   /*
     we can use the where method to filter the items:
@@ -26,7 +29,7 @@ const App = () => {
     event.preventDefault()
     const taskField = document.querySelector('#taskInput')
 
-    await db.todos.add({
+    await todos.add({
       task: taskField['value'],
       completed: false,
     })
@@ -34,22 +37,17 @@ const App = () => {
     taskField['value'] = ''
   }
 
-  const deleteTask = async (id) => db.todos.delete(id)
+  const deleteTask = async (id) => todos.delete(id)
 
   const toggleStatus = async (id, event) => {
-    await db.todos.update(id, { completed: !!event.target.checked })
+    await todos.update(id, { completed: !!event.target.checked })
   }
 
   return (
     <div className="container">
       <h3 className="teal-text center-align">Todo App</h3>
       <form className="add-item-form" onSubmit={addTask}>
-        <input
-          type="text"
-          id="taskInput"
-          placeholder="What do you want to do today?"
-          required
-        />
+        <input type="text" id="taskInput" placeholder="What do you want to do today?" required />
         <button type="submit" className="waves-effect btn teal right">
           Add
         </button>
@@ -57,9 +55,7 @@ const App = () => {
 
       <div className="card white darken-1">
         <div className="card-content">
-          {!allItems?.length && (
-            <p className="center-align">You've not added any task yet.</p>
-          )}
+          {!allItems?.length && <p className="center-align">You've not added any task yet.</p>}
 
           {allItems?.map(({ id, task, completed }) => (
             <div className="row" key={id}>
@@ -74,10 +70,7 @@ const App = () => {
                   <span className="black-text">{task}</span>
                 </label>
               </p>
-              <i
-                onClick={() => deleteTask(id)}
-                className="col s2 material-icons delete-button"
-              >
+              <i onClick={() => deleteTask(id)} className="col s2 material-icons delete-button">
                 delete
               </i>
             </div>
